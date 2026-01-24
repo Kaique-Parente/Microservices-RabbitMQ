@@ -2,7 +2,6 @@ package com.microservice.user.controller;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.microservice.user.dto.CreateUserDto;
+import com.microservice.user.dto.UserResponseDto;
 import com.microservice.user.models.UserModel;
 import com.microservice.user.services.UserService;
 
@@ -28,10 +28,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> saveUser(@RequestBody @Valid CreateUserDto userRecordDto) {
-        UserModel userModel = new UserModel();
-        BeanUtils.copyProperties(userRecordDto, userModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userModel));
+    public ResponseEntity<UserResponseDto> saveUser(@RequestBody @Valid CreateUserDto userRecordDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRecordDto));
     }
 
     @GetMapping
