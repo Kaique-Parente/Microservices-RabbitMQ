@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,9 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserModel> getUsers(){
-        return userService.getUsers();
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+    public ResponseEntity<List<UserModel>> listAll(){
+        var users = userService.listAll();
+        return ResponseEntity.ok(users);
     }
 }

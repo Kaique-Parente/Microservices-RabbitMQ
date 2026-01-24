@@ -60,7 +60,7 @@ public class UserService {
         return new UserResponseDto(user.getName(), user.getEmail(), roles);
     }
 
-    public List<UserModel> getUsers(){
+    public List<UserModel> listAll(){
        return userRepository.findAll();
     }
 
